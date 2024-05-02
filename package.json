@@ -4,7 +4,8 @@
   "description": "O script verifica e envia uma mensagem de correio eletrónico quando a tabela de notas é alterada.",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "node test.js"
   },
   "keywords": [
     "email",
@@ -14,11 +15,11 @@
   "author": "Newton Samin Urbanetz",
   "license": "ISC",
   "dependencies": {
-    "crawlee": "^3.9.2",
+    "@sparticuz/chromium": "^123.0.1",
     "dotenv": "^16.4.5",
     "pixelmatch": "^5.3.0",
     "pngjs": "^7.0.0",
-    "puppeteer": "^22.7.1",
+    "puppeteer-core": "^22.7.1",
     "resend": "^3.2.0"
   }
 }

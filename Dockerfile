@@ -26,4 +26,5 @@ COPY --chown=myuser . ./
 
 
 # Run the image.
+RUN npx @puppeteer/browsers install chrome@stable
 CMD npm start --silent

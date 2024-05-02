@@ -1,4 +1,5 @@
-const { launchPuppeteer } = require('crawlee');
+const { launch } = require('puppeteer-core');
+const chromium = require('@sparticuz/chromium')
 const pixelmatch = require('pixelmatch');
 const PNG = require('pngjs').PNG;
 const fs = require('fs');
@@ -37,12 +38,13 @@ const firstTable = 'table:nth-of-type(1)';
  */
 async function runTask() {
     try {
+        const executablePath = await chromium.executablePath();
+
         // Launches a headless browser
-        console.log('Launching browser');
-        const browser = await launchPuppeteer({
-            launchOptions: {
-                headless: !isProduction && debug,
-            }
+        const browser = await launch({
+            headless: debug && !isProduction,
+            executablePath,
+            args: chromium.args
         });
 
         // Opens a new page
@@ -83,7 +85,7 @@ async function runTask() {
 
 /**
  * Logs into the website.
- * @param {import('puppeteer').Page} page - The page object.
+ * @param {import('puppeteer-core').Page} page - The page object.
  */
 async function performLogin(page) {
     // Logs in
@@ -95,19 +97,19 @@ async function performLogin(page) {
 
 /**
  * Clicks on a selector and waits for the next page.
- * @param {import('puppeteer').Page} page - The page object.
+ * @param {import('puppeteer-core').Page} page - The page object.
  * @param {string} selector - The selector to click on.
  */
 async function clickAndWait(page, selector) {
     // Waits for the selector to be visible and clicks on it
-    const element = await page.waitForSelector(selector, { visible: true });
-    await element.click(element);
+    await page.waitForSelector(selector, { visible: true });
+    await page.click(selector);
     //await page.waitForNavigation();
 }
 
 /**
  * Takes a screenshot and checks for changes.
- * @param {import('puppeteer').Page} page - The page object.
+ * @param {import('puppeteer-core').Page} page - The page object.
  * @param {string} tableSelector - The selector of the table.
  */
 async function takeAndCheckScreenshot(page, tableSelector) {

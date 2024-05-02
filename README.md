@@ -24,6 +24,7 @@ Clone o repositório e instale as dependências:
 git clone https://github.com/nsrau/email-unigran-notas.git
 cd email-unigran-notas
 npm install
+npm start
 ```
 
 ## Configuração

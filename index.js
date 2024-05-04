@@ -116,7 +116,7 @@ async function takeAndCheckScreenshot(page, tableSelector) {
     // Waits for the table to be visible and takes a screenshot
     await page.waitForSelector(tableSelector, { visible: true });
     const table = await page.$(tableSelector);
-    const newScreenshotBuffer = await table.screenshot({ path: screenshotPath });
+    const newScreenshotBuffer = await table.screenshot();
 
     // Checks for changes compared to the previous screenshot
     await compareScreenshots(newScreenshotBuffer);
